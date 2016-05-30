@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>Test App: Login</title>
+    <style>
+      p.error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Register</h1>
+    <?php
+      if($this->session->flashdata('reg_errors')){
+        echo($this->session->flashdata('reg_errors')[0]);
+      }
+    ?>
+    <form action="/users/register" method='post'>
+      First Name: <input type="text" name='first_name'><br>
+      Last Name:<input type="text" name='last_name'><br>
+      Email: <input type="text" name='email'><br>
+      Password: <input type="text" name='password'><br>
+      Confirm: <input type="text" name='confirm_pw'>
+      <input type="submit" value='Register'>
+    </form>
+    <h1>Login</h1>
+    <?php
+      if($this->session->flashdata('log_errors')){
+        echo($this->session->flashdata('log_errors'));
+      }
+    ?>
+    <form action="/users/login" method='post'>
+      Email: <input type="text" name='email'><br>
+      Password: <input type="text" name='password'>
+      <input type="submit" value='Login'>
+    </form>
+  </body>
+</html>
+
+
+
+
+
+<html>
+  <?php
+  ?>
+  <head>
+    <title>Success!!</title>
+  </head>
+  <body>
+    <h1>Hi, <?= $this->session->userdata('name'); ?></h1>
+    <p>Hi, <?= $first_name ?></p>
+  </body>
+</html>
+
+
+
+<link rel='stylesheet' type='text/css' href='../assets/css/forms.css'>
