@@ -115,7 +115,7 @@ class User extends CI_Model
     }
     function other_users_trips($id)
     {
-        $query = "SELECT CONCAT(first_name, ' ', last_name) AS creator, destination, start_date, end_date, trip_id
+        $query = "SELECT CONCAT(first_name, ' ', last_name) AS creator, destination, date_format(start_date, '%b %D, %Y') AS start_date, date_format(end_date, '%b %D, %Y') AS end_date, trip_id
         FROM users_has_trips
         JOIN users ON users.id = users_has_trips.user_id
         JOIN trips ON trips.id = users_has_trips.trip_id
@@ -125,14 +125,15 @@ class User extends CI_Model
 
     function trip_info($id)
     {
-        $query2 = "SELECT * FROM trips JOIN users_has_trips ON trips.id = users_has_trips.trip_id JOIN users ON users.id = users_has_trips.user_id WHERE trips.id = ?";
+        $query2 = "SELECT trips.*, users.*, date_format(start_date, '%b %D, %Y') AS start_date, date_format(end_date, '%b %D, %Y') AS end_date
+        FROM trips JOIN users_has_trips ON trips.id = users_has_trips.trip_id
+        JOIN users ON users.id = users_has_trips.user_id WHERE trips.id = ?";
         return $this->db->query($query2, $id)->result_array();
     }
 
     function get_trips($id)
     {
-        // var_dump($this->session->userdata('logged_in')); die();
-        $query = "SELECT * FROM trips JOIN users_has_trips ON trips.id = users_has_trips.trip_id WHERE user_id = ?";
+        $query = "SELECT trips.*, date_format(start_date, '%b %D, %Y') AS start_date, date_format(end_date, '%b %D, %Y') AS end_date FROM trips JOIN users_has_trips ON trips.id = users_has_trips.trip_id WHERE user_id = ?";
         return $this->db->query($query, $id)->result_array();
     }
 

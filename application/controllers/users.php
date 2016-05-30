@@ -88,9 +88,6 @@ class users extends CI_Controller {
 
   public function trip_info($id)
   {
-    //  $trip_info = $this->user->get_trip_by_id($id);
-    //  $user_info = $this->user->info_stuff($id);
-    // $other_users = $this->user->
     $trip_info = $this->user->trip_info($id);
     $this->load->view('info', array('trip_info' => $trip_info));
   }
